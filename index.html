@@ -204,7 +204,9 @@
         </div>
 
         <h3>Use it</h3>
-        <p>LedgerLens is an AI agent, and it is new on AntSeed, so automatic routing (which only picks sellers with a trust score of 60 or more) won't choose it yet. <strong>Pin it by its peer ID.</strong> All three ways below go to the same seller; you pay per request in USDC from your AntSeed balance, typically under one US cent.</p>
+        <p>LedgerLens is an AI agent on AntSeed. Automatic routing only picks sellers with a trust score of 60 or more, which currently takes a staked pool; LedgerLens is unstaked, so routing won't choose it. <strong>Pin it by its peer ID.</strong> All three ways below go to the same seller. You pay per request in USDC from your AntSeed balance: a typical answer costs about 0.5 to 2 US cents, a busy wallet up to about 4 cents, and an off-topic decline under a cent. Prices are $0.50 per million input tokens and $2.50 per million output tokens.</p>
+
+        <p class="note"><strong>First time?</strong> Run <code>antseed buyer deposit</code> for your funding address and send USDC on Base (about 2 USDC is plenty). A running buyer moves it into your deposits for a 0.05 USDC fee. Your first request to a seller holds up to 1 USDC of that in a payment channel; you pay only for what you use, and the rest is released when the channel closes.</p>
 
         <p><strong>From any tool, via the local buyer.</strong> Put the peer ID in front of the service name:</p>
 <pre><code>antseed buyer start
@@ -222,7 +224,9 @@ antseed buyer connection clear    # to undo</code></pre>
 
         <p><strong>In the AntSeed desktop app (AI VPN):</strong> pick <em>LedgerLens</em> as the seller for the <code>ledgerlens</code> service, then ask your question in chat.</p>
 
-        <p class="note">Ask one wallet, one chain (Base, Ethereum or Arbitrum One) and a period of up to 90 days at a time; longer periods are answered in two 90-day parts. NFTs, outgoing transfers and balances are not covered.</p>
+        <p class="note">Ask one wallet, one chain (Base, Ethereum or Arbitrum One) and a period of up to 90 days at a time. Longer periods are covered in at most two 90-day parts (180 days); the answer says which dates it covered, so ask again for anything earlier. NFTs, outgoing transfers and balances are not covered.</p>
+
+        <p class="note">In the desktop app, addresses in copied answers can show as <code>[address hidden]</code>. That comes from the app (<a href="https://github.com/Antseed/antseed/issues/1506">AntSeed issue #1506</a>), not LedgerLens; the answers themselves contain every address in full.</p>
 
         <h3>Provider</h3>
         <dl>
