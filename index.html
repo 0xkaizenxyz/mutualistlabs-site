@@ -4,7 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mutualist Labs</title>
-  <meta name="description" content="Mutualist Labs builds specialist AI agents that work with each other and with other agents. Its first is LedgerLens, which explains what a wallet received.">
+  <meta name="description" content="Mutualist Labs builds specialist AI agents that work with each other, and with yours. Its first is LedgerLens, which explains what a wallet received.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mutualistlabs.com/">
+  <meta property="og:title" content="Mutualist Labs">
+  <meta property="og:description" content="Specialist AI agents that work with each other, and with yours.">
+  <meta property="og:image" content="https://mutualistlabs.com/og.png">
+  <meta property="og:image:width" content="1500">
+  <meta property="og:image:height" content="500">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://mutualistlabs.com/og.png">
   <style>
     :root {
       --bg: #fbfaf7;
@@ -12,16 +23,27 @@
       --muted: #5f5e5a;
       --line: #e3e1da;
       --accent: #2d6a4f;
+      --accent-soft: #74c69d;
       --code-bg: #f1efe8;
+      /* LedgerLens keeps its dark identity in both themes */
+      --ll-bg: #141413;
+      --ll-panel: #1f1e1c;
+      --ll-line: #2c2b28;
+      --ll-fg: #ecebe6;
+      --ll-muted: #a3a29c;
+      --ll-accent: #74c69d;
+      --ll-warn: #e9a23b;
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #141413;
+        --bg: #1b1b1a;
         --fg: #ecebe6;
         --muted: #a3a29c;
-        --line: #2c2b28;
+        --line: #2f2e2b;
         --accent: #74c69d;
-        --code-bg: #1f1e1c;
+        --accent-soft: #74c69d;
+        --code-bg: #242320;
+        --ll-bg: #141413;
       }
     }
     * { box-sizing: border-box; }
@@ -30,65 +52,158 @@
       margin: 0;
       background: var(--bg);
       color: var(--fg);
-      font: 17px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font: 17px/1.6 -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
-    main { max-width: 680px; margin: 0 auto; padding: 72px 20px 48px; }
-    h1 { font-size: 2.2rem; line-height: 1.15; margin: 0 0 12px; letter-spacing: -0.02em; }
-    h2 { font-size: 1.05rem; margin: 40px 0 10px; }
-    h2.agent { font-size: 1.5rem; margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--line); letter-spacing: -0.01em; }
-    p, li { color: var(--fg); }
-    .lede { font-size: 1.2rem; color: var(--muted); margin: 0 0 8px; }
-    ul { padding-left: 1.2em; }
-    li { margin: 4px 0; }
     a { color: var(--accent); }
-    code, pre {
-      font: 0.9em/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      background: var(--code-bg);
-      border-radius: 6px;
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+    /* top bar */
+    .bar { display: flex; align-items: center; gap: 10px; padding: 22px 0; font-weight: 700; letter-spacing: -0.01em; }
+    .bar svg { width: 30px; height: 30px; border-radius: 7px; flex: none; }
+
+    /* shared brand type */
+    .eyebrow { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
+    .headline { font-size: clamp(2rem, 6vw, 3.1rem); line-height: 1.12; font-weight: 700; letter-spacing: -0.025em; margin: 0; text-wrap: balance; }
+    .headline em { font-style: normal; color: var(--accent); }
+
+    /* hero */
+    .hero { text-align: center; padding-top: 64px; padding-bottom: 56px; }
+    .chain { display: block; width: 236px; max-width: 70%; height: auto; margin: 34px auto 30px; color: var(--accent); }
+    .chain .fill { fill: var(--accent-soft); opacity: 0.55; }
+    .hero p.intro { max-width: 560px; margin: 0 auto; color: var(--muted); font-size: 1.08rem; }
+
+    /* LedgerLens band */
+    .ll { background: var(--ll-bg); color: var(--ll-fg); padding: 72px 0 64px; }
+    .ll a { color: var(--ll-accent); }
+    .ll .eyebrow { color: var(--ll-accent); display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .ll .eyebrow svg { width: 22px; height: 22px; border-radius: 5px; }
+    .ll .headline { font-size: clamp(1.7rem, 5vw, 2.5rem); text-align: center; }
+    .ll .headline em { color: var(--ll-accent); }
+    .ll .sub { text-align: center; color: var(--ll-muted); max-width: 560px; margin: 16px auto 0; }
+
+    .receipt {
+      max-width: 600px; margin: 36px auto 8px;
+      background: var(--ll-panel); border: 1px solid var(--ll-line); border-radius: 14px;
+      padding: 18px 26px;
+      font: 0.95rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
-    code { padding: 1px 5px; word-break: break-all; }
-    pre { padding: 14px 16px; overflow-x: auto; }
-    pre code { padding: 0; background: none; word-break: normal; }
-    dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 0; }
-    dt { color: var(--muted); }
+    .receipt div { display: flex; justify-content: space-between; gap: 16px; padding: 7px 0; }
+    .receipt .tx { color: var(--ll-accent); white-space: nowrap; }
+    .receipt .warn { color: var(--ll-warn); }
+    .caption { text-align: center; color: var(--ll-muted); font-size: 0.8rem; margin: 0 0 48px; }
+
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 40px; }
+    .ll h3 { font-size: 1rem; margin: 0 0 8px; color: var(--ll-fg); }
+    .ll ul { padding-left: 1.1em; margin: 0 0 28px; color: var(--ll-muted); }
+    .ll li { margin: 5px 0; }
+    .ll li::marker { color: var(--ll-accent); }
+
+    .ll code, .ll pre { font: 0.88em/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: var(--ll-panel); border-radius: 6px; }
+    .ll code { padding: 1px 5px; word-break: break-all; }
+    .ll pre { padding: 16px 18px; overflow-x: auto; border: 1px solid var(--ll-line); margin: 0 0 32px; }
+    .ll pre code { padding: 0; background: none; word-break: normal; }
+    .ll p { color: var(--ll-muted); }
+
+    dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; margin: 0; }
+    dt { color: var(--ll-muted); }
     dd { margin: 0; min-width: 0; }
-    footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
-    @media (max-width: 480px) {
-      main { padding: 48px 16px 40px; }
-      h1 { font-size: 1.8rem; }
+
+    footer { padding: 28px 0 40px; color: var(--muted); font-size: 0.88rem; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+
+    @media (max-width: 560px) {
+      .wrap { padding: 0 16px; }
+      .hero { padding-top: 44px; padding-bottom: 44px; }
+      .ll { padding: 52px 0 48px; }
+      .cols { grid-template-columns: 1fr; }
+      .receipt { padding: 14px 16px; font-size: 0.82rem; }
       dl { grid-template-columns: 1fr; gap: 2px; }
       dd { margin-bottom: 8px; }
     }
   </style>
 </head>
 <body>
+  <header class="wrap bar">
+    <svg viewBox="0 0 400 400" aria-hidden="true">
+      <rect width="400" height="400" fill="#2d6a4f"/>
+      <path d="M200,119.4 A90,90 0 0 1 200,280.6 A90,90 0 0 1 200,119.4 Z" fill="#b7e4c7"/>
+      <circle cx="160" cy="200" r="90" fill="none" stroke="#fbfaf7" stroke-width="22"/>
+      <circle cx="240" cy="200" r="90" fill="none" stroke="#fbfaf7" stroke-width="22"/>
+    </svg>
+    Mutualist Labs
+  </header>
+
   <main>
-    <h1>Mutualist Labs</h1>
-    <p class="lede">Specialist AI agents that do one job well and work with each other, and with yours.</p>
-    <p>In nature, mutualism is a partnership where both sides come out ahead. We build agents the same way: narrow, honest about what they don't know, and easy for other agents to call. They are offered on the <a href="https://antseed.com">AntSeed</a> network.</p>
+    <section class="wrap hero">
+      <p class="eyebrow">Mutualist Labs</p>
+      <h1 class="headline">Specialist AI agents that work with each other, <em>and with yours.</em></h1>
+      <svg class="chain" viewBox="-120 -32 240 64" aria-hidden="true">
+        <g class="fill">
+          <path d="M-72,-20.8 A26,26 0 0 1 -72,20.8 A26,26 0 0 1 -72,-20.8 Z"/>
+          <path d="M-36,-20.8 A26,26 0 0 1 -36,20.8 A26,26 0 0 1 -36,-20.8 Z"/>
+          <path d="M0,-20.8 A26,26 0 0 1 0,20.8 A26,26 0 0 1 0,-20.8 Z"/>
+          <path d="M36,-20.8 A26,26 0 0 1 36,20.8 A26,26 0 0 1 36,-20.8 Z"/>
+        </g>
+        <path d="M72,-20.8 A26,26 0 0 1 72,20.8 A26,26 0 0 1 72,-20.8 Z" fill="currentColor"/>
+        <g fill="none" stroke="currentColor" stroke-width="3.5">
+          <circle cx="-90" r="26" opacity="0.35"/>
+          <circle cx="-54" r="26" opacity="0.5"/>
+          <circle cx="-18" r="26" opacity="0.65"/>
+          <circle cx="18" r="26" opacity="0.8"/>
+          <circle cx="54" r="26"/>
+          <circle cx="90" r="26" stroke-dasharray="6 5"/>
+        </g>
+      </svg>
+      <p class="intro">In nature, mutualism is a partnership where both sides come out ahead. We build agents the same way: narrow, honest about what they don't know, and easy for other agents to call. They are offered on the <a href="https://antseed.com">AntSeed</a> network.</p>
+    </section>
 
-    <h2 class="agent">Agent 01 · LedgerLens</h2>
-    <p class="lede">Ask what a wallet received. Get an answer where every claim cites a transaction hash.</p>
-    <p>LedgerLens is a read-only agent. Give it a public address and a question, and it explains the incoming transfers: which tokens, from whom, when, their fair value at receipt, and anything that looks like spam or address poisoning.</p>
+    <section class="ll" id="ledgerlens">
+      <div class="wrap">
+        <p class="eyebrow">
+          <svg viewBox="0 0 400 400" aria-hidden="true">
+            <rect width="400" height="400" fill="#141413"/>
+            <path d="M200,72 A150,150 0 0 1 200,328 A150,150 0 0 1 200,72 Z" fill="#74c69d"/>
+            <g stroke="#141413" stroke-width="16" stroke-linecap="round">
+              <line x1="160" y1="155" x2="240" y2="155"/>
+              <line x1="160" y1="200" x2="222" y2="200"/>
+              <line x1="160" y1="245" x2="240" y2="245"/>
+            </g>
+          </svg>
+          Agent 01 · LedgerLens
+        </p>
+        <h2 class="headline">Ask what a wallet received. <em>Every claim cited.</em></h2>
+        <p class="sub">A read-only agent. Give it a public address and a question, and it explains the incoming transfers: which tokens, from whom, when, their fair value at receipt, and anything that looks like spam or address poisoning.</p>
 
-    <h2>What it does</h2>
-    <ul>
-      <li>Incoming transfers on Base, Ethereum mainnet and Arbitrum One</li>
-      <li>Senders, with labels only where a curated label exists</li>
-      <li>Fair value at receipt from a named price source</li>
-      <li>Spam, dust and lookalike-token warnings</li>
-      <li>A clear "Data gaps" line whenever coverage is incomplete</li>
-    </ul>
+        <div class="receipt" role="img" aria-label="Example answer: two receipts and a lookalike-token warning, each with a transaction hash">
+          <div><span>+1,250.00 USDC</span><span class="tx">tx 0x8f3a…c21e</span></div>
+          <div><span>+0.42 ETH</span><span class="tx">tx 0x1b7d…09fa</span></div>
+          <div><span class="warn">⚠ lookalike token, ignore</span><span class="tx">tx 0xc40e…77b2</span></div>
+        </div>
+        <p class="caption">Illustration. Real answers print full hashes and block timestamps.</p>
 
-    <h2>What it won't do</h2>
-    <ul>
-      <li>Hold keys, sign anything or move funds. Never send it a seed phrase.</li>
-      <li>Give tax, legal or investment advice.</li>
-      <li>Answer questions outside wallet receipts.</li>
-    </ul>
+        <div class="cols">
+          <div>
+            <h3>What it does</h3>
+            <ul>
+              <li>Incoming transfers on Base, Ethereum mainnet and Arbitrum One</li>
+              <li>Senders, with labels only where a curated label exists</li>
+              <li>Fair value at receipt from a named price source</li>
+              <li>Spam, dust and lookalike-token warnings</li>
+              <li>A clear "Data gaps" line whenever coverage is incomplete</li>
+            </ul>
+          </div>
+          <div>
+            <h3>What it won't do</h3>
+            <ul>
+              <li>Hold keys, sign anything or move funds. Never send it a seed phrase.</li>
+              <li>Give tax, legal or investment advice.</li>
+              <li>Answer questions outside wallet receipts.</li>
+            </ul>
+          </div>
+        </div>
 
-    <h2>Use it</h2>
-    <p>Run an AntSeed buyer and request the <code>ledgerlens</code> service with the Anthropic Messages API.</p>
+        <h3>Use it</h3>
+        <p>Run an AntSeed buyer and request the <code>ledgerlens</code> service with the Anthropic Messages API.</p>
 <pre><code>antseed buyer start
 curl http://localhost:8377/v1/messages \
   -H 'content-type: application/json' \
@@ -96,14 +211,21 @@ curl http://localhost:8377/v1/messages \
        "messages":[{"role":"user","content":
        "What did 0x… receive on Base in the last 30 days?"}]}'</code></pre>
 
-    <h2>Provider</h2>
-    <dl>
-      <dt>Peer ID</dt><dd><code>32d752272593c042888bb6e997c466d3574a9f52</code></dd>
-      <dt>Service</dt><dd><code>ledgerlens</code></dd>
-      <dt>GitHub</dt><dd><a href="https://github.com/0xkaizenxyz">0xkaizenxyz</a></dd>
-    </dl>
-
-    <footer>© 2026 Mutualist Labs. LedgerLens is read-only and informational. Verify anything important on a block explorer.</footer>
+        <h3>Provider</h3>
+        <dl>
+          <dt>Peer ID</dt><dd><code>32d752272593c042888bb6e997c466d3574a9f52</code></dd>
+          <dt>Service</dt><dd><code>ledgerlens</code></dd>
+          <dt>GitHub</dt><dd><a href="https://github.com/0xkaizenxyz">0xkaizenxyz</a></dd>
+        </dl>
+      </div>
+    </section>
   </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Mutualist Labs</span>
+      <span>LedgerLens is read-only and informational. Verify anything important on a block explorer.</span>
+    </div>
+  </footer>
 </body>
 </html>
