@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LedgerLens privacy notice · Mutualist Labs</title>
+  <meta name="description" content="What LedgerLens stores when you send it a request, how long, and who else sees it.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <style>
+    :root {
+      --bg: #fbfaf7;
+      --fg: #1b1b1a;
+      --muted: #5f5e5a;
+      --line: #e3e1da;
+      --accent: #2d6a4f;
+      --accent-soft: #74c69d;
+      --code-bg: #f1efe8;
+      /* LedgerLens keeps its dark identity in both themes */
+      --ll-bg: #141413;
+      --ll-panel: #1f1e1c;
+      --ll-line: #2c2b28;
+      --ll-fg: #ecebe6;
+      --ll-muted: #a3a29c;
+      --ll-accent: #74c69d;
+      --ll-warn: #e9a23b;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1b1b1a;
+        --fg: #ecebe6;
+        --muted: #a3a29c;
+        --line: #2f2e2b;
+        --accent: #74c69d;
+        --accent-soft: #74c69d;
+        --code-bg: #242320;
+        --ll-bg: #141413;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font: 17px/1.6 -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    a { color: var(--accent); }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+    /* top bar */
+    .bar { display: flex; align-items: center; gap: 10px; padding: 22px 0; font-weight: 700; letter-spacing: -0.01em; }
+    .bar svg { width: 30px; height: 30px; border-radius: 7px; flex: none; }
+
+    /* shared brand type */
+    .eyebrow { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
+    .headline { font-size: clamp(2rem, 6vw, 3.1rem); line-height: 1.12; font-weight: 700; letter-spacing: -0.025em; margin: 0; text-wrap: balance; }
+    .headline em { font-style: normal; color: var(--accent); }
+
+    /* hero */
+    .hero { text-align: center; padding-top: 64px; padding-bottom: 56px; }
+    .chain { display: block; width: 236px; max-width: 70%; height: auto; margin: 34px auto 30px; color: var(--accent); }
+    .chain .fill { fill: var(--accent-soft); opacity: 0.55; }
+    .hero p.intro { max-width: 560px; margin: 0 auto; color: var(--muted); font-size: 1.08rem; }
+
+    /* LedgerLens band */
+    .ll { background: var(--ll-bg); color: var(--ll-fg); padding: 72px 0 64px; }
+    .ll a { color: var(--ll-accent); }
+    .ll .eyebrow { color: var(--ll-accent); display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .ll .eyebrow svg { width: 22px; height: 22px; border-radius: 5px; }
+    .ll .headline { font-size: clamp(1.7rem, 5vw, 2.5rem); text-align: center; }
+    .ll .headline em { color: var(--ll-accent); }
+    .ll .sub { text-align: center; color: var(--ll-muted); max-width: 560px; margin: 16px auto 0; }
+
+    .receipt {
+      max-width: 600px; margin: 36px auto 8px;
+      background: var(--ll-panel); border: 1px solid var(--ll-line); border-radius: 14px;
+      padding: 18px 26px;
+      font: 0.95rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .receipt div { display: flex; justify-content: space-between; gap: 16px; padding: 7px 0; }
+    .receipt .tx { color: var(--ll-accent); white-space: nowrap; }
+    .receipt .warn { color: var(--ll-warn); }
+    .caption { text-align: center; color: var(--ll-muted); font-size: 0.8rem; margin: 0 0 48px; }
+
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 40px; }
+    .ll h3 { font-size: 1rem; margin: 0 0 8px; color: var(--ll-fg); }
+    .ll ul { padding-left: 1.1em; margin: 0 0 28px; color: var(--ll-muted); }
+    .ll li { margin: 5px 0; }
+    .ll li::marker { color: var(--ll-accent); }
+
+    .ll code, .ll pre { font: 0.88em/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: var(--ll-panel); border-radius: 6px; }
+    .ll code { padding: 1px 5px; word-break: break-all; }
+    .ll pre { padding: 16px 18px; overflow-x: auto; border: 1px solid var(--ll-line); margin: 0 0 32px; }
+    .ll pre code { padding: 0; background: none; word-break: normal; }
+    .ll p { color: var(--ll-muted); }
+
+    dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; margin: 0; }
+    dt { color: var(--ll-muted); }
+    dd { margin: 0; min-width: 0; }
+
+    footer { padding: 28px 0 40px; color: var(--muted); font-size: 0.88rem; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+
+    @media (max-width: 560px) {
+      .wrap { padding: 0 16px; }
+      .hero { padding-top: 44px; padding-bottom: 44px; }
+      .ll { padding: 52px 0 48px; }
+      .cols { grid-template-columns: 1fr; }
+      .receipt { padding: 14px 16px; font-size: 0.82rem; }
+      dl { grid-template-columns: 1fr; gap: 2px; }
+      dd { margin-bottom: 8px; }
+    }
+  </style>
+  <style>
+    .doc h1 { font-size: 1.9rem; line-height: 1.2; margin: 18px 0 10px; letter-spacing: -0.01em; }
+    .doc h2 { font-size: 1.2rem; margin: 30px 0 8px; }
+    .doc .tbl { overflow-x: auto; }
+    .doc table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+    .doc th, .doc td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+    .doc code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; font-size: 0.88em; overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+  <!-- Generated from PRIVACY.md in the ledgerlens repo; edit that file, not this one. -->
+  <header class="wrap bar">
+    <svg viewBox="0 0 400 400" aria-hidden="true">
+      <rect width="400" height="400" fill="#2d6a4f"/>
+      <path d="M200,119.4 A90,90 0 0 1 200,280.6 A90,90 0 0 1 200,119.4 Z" fill="#b7e4c7"/>
+      <circle cx="160" cy="200" r="90" fill="none" stroke="#fbfaf7" stroke-width="22"/>
+      <circle cx="240" cy="200" r="90" fill="none" stroke="#fbfaf7" stroke-width="22"/>
+    </svg>
+    <a href="/" style="color:inherit;text-decoration:none">Mutualist Labs</a>
+  </header>
+  <main class="wrap doc">
+<h1>LedgerLens privacy notice</h1>
+<p>Effective 2026-11-12. Operator: Mutualist Labs (<code>mutualistlabs.com</code>, GitHub <code>0xkaizenxyz</code>). LedgerLens is an AntSeed seller (peer <code>32d752272593c042888bb6e997c466d3574a9f52</code>, service <code>ledgerlens</code>).</p>
+<p>This notice says what LedgerLens stores when you send it a request, how long, and who else sees it. Published at <a href="/privacy.html">mutualistlabs.com/privacy.html</a>; this file in the LedgerLens repository is the source.</p>
+<h2>What you send</h2>
+<p>A request carries your messages (usually a wallet address, chain, period and question), the system prompt of the app you use, and AntSeed routing headers that include your <strong>buyer peer ID</strong>. Wallet addresses and transactions are public on-chain data. Don't send anything you want kept private: no seed phrases, private keys, names, emails or account numbers. LedgerLens never needs them and refuses keys and seed phrases.</p>
+<h2>What we keep, and for how long</h2>
+<div class="tbl"><table>
+<thead><tr><th>Record</th><th>Contents</th><th>Kept</th></tr></thead><tbody>
+<tr><td>Request log (<code>requests.jsonl</code>)</td><td>Time, request ID, the <strong>first 500 characters</strong> of your last message and of your app's system prompt, a SHA-256 hash of the full question, names (not values) of the <code>x-antseed-*</code> headers, tool names and arguments the model chose, token counts, status, latency</td><td><strong>30 days</strong>, then deleted</td></tr>
+<tr><td>Tool log (<code>tools.jsonl</code>)</td><td>Time, tool name, its arguments (addresses, chain, time window, transaction hash), duration, success or error, result size</td><td><strong>30 days</strong>, then deleted</td></tr>
+<tr><td>Seller log (<code>seller.log</code>)</td><td>Service start/stop, errors, warnings; no message text</td><td>14 days</td></tr>
+<tr><td>AntSeed metering and payments (<code>metering.db</code>, <code>payments/</code>)</td><td>Per request: buyer peer ID, token counts, cost, latency, status; signed usage receipts and payment-channel records</td><td>As long as AntSeed needs them for billing, disputes and settlement (kept by the AntSeed node software; we don't delete them by hand)</td></tr>
+<tr><td>Price and token cache</td><td>Token prices and token names fetched from public sources; nothing about you</td><td>Until replaced</td></tr>
+</tbody></table></div>
+<p>We do <strong>not</strong> store the full text of your conversation, the model's answers, your IP address, or your payment wallet beyond what the AntSeed node records for payment channels.</p>
+<p>Logs live on one server (a DigitalOcean droplet in its San Francisco region, <code>sfo2</code>), readable only by the operator. They are used to run and fix the service, measure demand (which questions people ask, how often tools fail) and check billing. We don't sell them, share them, or use them to train models.</p>
+<h2>Who else processes your request</h2>
+<ul><li><strong>Anthropic</strong> runs the language model. Your messages and the tool results go to the Anthropic API under Anthropic's Commercial Terms, which state that "Anthropic may not train models on Customer Content" and that data is processed under Anthropic's Data Processing Addendum. How long Anthropic keeps API data is set by Anthropic's own policies, not by us.</li><li>Answers are generated by an AI model. Check anything important against a block explorer before relying on it.</li><li><strong>dRPC</strong> and public RPC endpoints receive the wallet addresses and blocks we query. <strong>Coinbase</strong> and other public price sources receive token symbols and times, not your address.</li><li><strong>AntSeed</strong> network peers see the encrypted connection and payment-channel activity, not your messages.</li></ul>
+<h2>Your choices</h2>
+<ul><li>Ask about any address: LedgerLens doesn't know who owns it, and neither do we.</li><li>To have log lines from your requests deleted before 30 days, send your buyer peer ID and approximate request times to <code>0xkaizenxyz</code> on GitHub (the contact listed on <code>mutualistlabs.com</code>). We can delete matching lines from the request and tool logs. AntSeed's metering and payment records can't be removed by us while they are needed for settlement.</li></ul>
+<h2>Changes</h2>
+<p>Changes are published at <a href="/privacy.html">mutualistlabs.com/privacy.html</a>, with the effective date at the top.</p>
+  </main>
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Mutualist Labs</span>
+      <span>LedgerLens is read-only and informational. Verify anything important on a block explorer.</span>
+    </div>
+  </footer>
+</body>
+</html>

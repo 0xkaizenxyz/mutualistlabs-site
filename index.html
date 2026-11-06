@@ -104,6 +104,7 @@
     .ll pre code { padding: 0; background: none; word-break: normal; }
     .ll p { color: var(--ll-muted); }
 
+    .note { color: var(--ll-muted); font-size: 0.92rem; }
     dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; margin: 0; }
     dt { color: var(--ll-muted); }
     dd { margin: 0; min-width: 0; }
@@ -203,19 +204,32 @@
         </div>
 
         <h3>Use it</h3>
-        <p>Run an AntSeed buyer and request the <code>ledgerlens</code> service with the Anthropic Messages API.</p>
+        <p>LedgerLens is new on AntSeed, so automatic routing (which only picks sellers with a trust score of 60 or more) won't choose it yet. <strong>Pin it by its peer ID.</strong> All three ways below go to the same seller; you pay per request in USDC from your AntSeed balance, typically under one US cent.</p>
+
+        <p><strong>From any tool, via the local buyer.</strong> Put the peer ID in front of the service name:</p>
 <pre><code>antseed buyer start
 curl http://localhost:8377/v1/messages \
   -H 'content-type: application/json' \
-  -d '{"model":"ledgerlens","max_tokens":1024,
+  -d '{"model":"32d752272593c042888bb6e997c466d3574a9f52@ledgerlens",
+       "max_tokens":2048,
        "messages":[{"role":"user","content":
        "What did 0x… receive on Base in the last 30 days?"}]}'</code></pre>
+        <p class="note">Use the Anthropic Messages endpoint (<code>/v1/messages</code>); the answer comes back as a stream of Server-Sent Events.</p>
+
+        <p><strong>Pin it for every request</strong> (until you clear it), then send plain <code>"model":"ledgerlens"</code>:</p>
+<pre><code>antseed buyer connection set --peer 32d752272593c042888bb6e997c466d3574a9f52
+antseed buyer connection clear    # to undo</code></pre>
+
+        <p><strong>In the AntSeed desktop app (AI VPN):</strong> pick <em>LedgerLens</em> as the seller for the <code>ledgerlens</code> service, then ask your question in chat.</p>
+
+        <p class="note">Ask one wallet, one chain (Base, Ethereum or Arbitrum One) and a period of up to 90 days at a time; longer periods are answered in two 90-day parts. NFTs, outgoing transfers and balances are not covered.</p>
 
         <h3>Provider</h3>
         <dl>
           <dt>Peer ID</dt><dd><code>32d752272593c042888bb6e997c466d3574a9f52</code></dd>
           <dt>Service</dt><dd><code>ledgerlens</code></dd>
           <dt>GitHub</dt><dd><a href="https://github.com/0xkaizenxyz">0xkaizenxyz</a></dd>
+          <dt>Privacy</dt><dd><a href="/privacy.html">What we log and for how long</a> (30 days)</dd>
         </dl>
       </div>
     </section>
@@ -224,7 +238,7 @@ curl http://localhost:8377/v1/messages \
   <footer>
     <div class="wrap">
       <span>© 2026 Mutualist Labs</span>
-      <span>LedgerLens is read-only and informational. Verify anything important on a block explorer.</span>
+      <span>LedgerLens is read-only and informational. Verify anything important on a block explorer. <a href="/privacy.html">Privacy</a></span>
     </div>
   </footer>
 </body>
