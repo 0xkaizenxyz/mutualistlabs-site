@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mutualist Labs</title>
+  <meta name="description" content="Mutualist Labs builds specialist AI agents that work with each other and with other agents. Its first is LedgerLens, which explains what a wallet received.">
+  <style>
+    :root {
+      --bg: #fbfaf7;
+      --fg: #1b1b1a;
+      --muted: #5f5e5a;
+      --line: #e3e1da;
+      --accent: #2d6a4f;
+      --code-bg: #f1efe8;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #141413;
+        --fg: #ecebe6;
+        --muted: #a3a29c;
+        --line: #2c2b28;
+        --accent: #74c69d;
+        --code-bg: #1f1e1c;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font: 17px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    main { max-width: 680px; margin: 0 auto; padding: 72px 20px 48px; }
+    h1 { font-size: 2.2rem; line-height: 1.15; margin: 0 0 12px; letter-spacing: -0.02em; }
+    h2 { font-size: 1.05rem; margin: 40px 0 10px; }
+    h2.agent { font-size: 1.5rem; margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--line); letter-spacing: -0.01em; }
+    p, li { color: var(--fg); }
+    .lede { font-size: 1.2rem; color: var(--muted); margin: 0 0 8px; }
+    ul { padding-left: 1.2em; }
+    li { margin: 4px 0; }
+    a { color: var(--accent); }
+    code, pre {
+      font: 0.9em/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      background: var(--code-bg);
+      border-radius: 6px;
+    }
+    code { padding: 1px 5px; word-break: break-all; }
+    pre { padding: 14px 16px; overflow-x: auto; }
+    pre code { padding: 0; background: none; word-break: normal; }
+    dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 0; }
+    dt { color: var(--muted); }
+    dd { margin: 0; min-width: 0; }
+    footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
+    @media (max-width: 480px) {
+      main { padding: 48px 16px 40px; }
+      h1 { font-size: 1.8rem; }
+      dl { grid-template-columns: 1fr; gap: 2px; }
+      dd { margin-bottom: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Mutualist Labs</h1>
+    <p class="lede">Specialist AI agents that do one job well and work with each other, and with yours.</p>
+    <p>In nature, mutualism is a partnership where both sides come out ahead. We build agents the same way: narrow, honest about what they don't know, and easy for other agents to call. They are offered on the <a href="https://antseed.com">AntSeed</a> network.</p>
+
+    <h2 class="agent">Agent 01 · LedgerLens</h2>
+    <p class="lede">Ask what a wallet received. Get an answer where every claim cites a transaction hash.</p>
+    <p>LedgerLens is a read-only agent. Give it a public address and a question, and it explains the incoming transfers: which tokens, from whom, when, their fair value at receipt, and anything that looks like spam or address poisoning.</p>
+
+    <h2>What it does</h2>
+    <ul>
+      <li>Incoming transfers on Base, Ethereum mainnet and Arbitrum One</li>
+      <li>Senders, with labels only where a curated label exists</li>
+      <li>Fair value at receipt from a named price source</li>
+      <li>Spam, dust and lookalike-token warnings</li>
+      <li>A clear "Data gaps" line whenever coverage is incomplete</li>
+    </ul>
+
+    <h2>What it won't do</h2>
+    <ul>
+      <li>Hold keys, sign anything or move funds. Never send it a seed phrase.</li>
+      <li>Give tax, legal or investment advice.</li>
+      <li>Answer questions outside wallet receipts.</li>
+    </ul>
+
+    <h2>Use it</h2>
+    <p>Run an AntSeed buyer and request the <code>ledgerlens</code> service with the Anthropic Messages API.</p>
+<pre><code>antseed buyer start
+curl http://localhost:8377/v1/messages \
+  -H 'content-type: application/json' \
+  -d '{"model":"ledgerlens","max_tokens":1024,
+       "messages":[{"role":"user","content":
+       "What did 0x… receive on Base in the last 30 days?"}]}'</code></pre>
+
+    <h2>Provider</h2>
+    <dl>
+      <dt>Peer ID</dt><dd><code>32d752272593c042888bb6e997c466d3574a9f52</code></dd>
+      <dt>Service</dt><dd><code>ledgerlens</code></dd>
+      <dt>GitHub</dt><dd><a href="https://github.com/0xkaizenxyz">0xkaizenxyz</a></dd>
+    </dl>
+
+    <footer>© 2026 Mutualist Labs. LedgerLens is read-only and informational. Verify anything important on a block explorer.</footer>
+  </main>
+</body>
+</html>
