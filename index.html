@@ -60,6 +60,8 @@
     /* top bar */
     .bar { display: flex; align-items: center; gap: 10px; padding: 22px 0; font-weight: 700; letter-spacing: -0.01em; }
     .bar svg { width: 30px; height: 30px; border-radius: 7px; flex: none; }
+    .bar nav { margin-left: auto; font-weight: 500; font-size: 0.95rem; }
+    .bar nav a { text-decoration: none; }
 
     /* shared brand type */
     .eyebrow { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
@@ -109,6 +111,15 @@
     dt { color: var(--ll-muted); }
     dd { margin: 0; min-width: 0; }
 
+    /* latest updates */
+    .updates { padding-top: 56px; padding-bottom: 28px; }
+    .updates ul { list-style: none; padding: 0; margin: 0 0 16px; border-top: 1px solid var(--line); }
+    .updates li { display: flex; gap: 6px 20px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .updates time { flex: none; width: 7.5em; color: var(--muted); font-size: 0.92rem; padding-top: 1px; }
+    .updates li a { font-weight: 600; text-decoration: none; }
+    .updates li a:hover { text-decoration: underline; }
+    .updates .all { font-size: 0.95rem; margin: 0; }
+
     footer { padding: 28px 0 40px; color: var(--muted); font-size: 0.88rem; }
     footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
 
@@ -117,6 +128,8 @@
       .hero { padding-top: 44px; padding-bottom: 44px; }
       .ll { padding: 52px 0 48px; }
       .cols { grid-template-columns: 1fr; }
+      .updates li { flex-direction: column; }
+      .updates time { width: auto; }
       .receipt { padding: 14px 16px; font-size: 0.82rem; }
       dl { grid-template-columns: 1fr; gap: 2px; }
       dd { margin-bottom: 8px; }
@@ -132,6 +145,7 @@
       <circle cx="240" cy="200" r="90" fill="none" stroke="#fbfaf7" stroke-width="22"/>
     </svg>
     Mutualist Labs
+    <nav><a href="/updates.html">Updates</a></nav>
   </header>
 
   <main>
@@ -225,7 +239,7 @@ antseed buyer connection clear    # to undo</code></pre>
 
         <p><strong>In the AntSeed desktop app (AI VPN):</strong> pick <em>LedgerLens</em> as the seller for the <code>ledgerlens</code> service, then ask your question in chat.</p>
 
-        <p class="note">Ask one wallet, one chain (Base, Ethereum or Arbitrum One) and a period of up to 90 days at a time. Longer periods are covered in at most two 90-day parts (180 days); the answer says which dates it covered, so ask again for anything earlier. NFTs, outgoing transfers and balances are not covered.</p>
+        <p class="note">Ask one wallet, one chain (Base, Ethereum or Arbitrum One) and a period of up to 90 days at a time. Longer periods are covered in up to three 90-day parts (270 days); the answer says which dates it covered, so ask again for anything earlier. NFTs, outgoing transfers and balances are not covered.</p>
 
         <p class="note">In the desktop app, addresses in copied answers can show as <code>[address hidden]</code>. That comes from the app (<a href="https://github.com/Antseed/antseed/issues/1506">AntSeed issue #1506</a>), not LedgerLens; the answers themselves contain every address in full.</p>
 
@@ -238,6 +252,16 @@ antseed buyer connection clear    # to undo</code></pre>
           <dt>Privacy</dt><dd><a href="/privacy.html">What we log and for how long</a> (30 days)</dd>
         </dl>
       </div>
+    </section>
+
+    <section class="wrap updates" id="updates">
+      <p class="eyebrow">Updates</p>
+      <!-- Newest first, three at most. Full posts live in updates.html. -->
+      <!-- <li><time datetime="YYYY-MM-DD">D Mon YYYY</time><a href="/updates.html#YYYY-MM-DD">Title</a></li> -->
+      <ul>
+        <li><time datetime="2026-11-09">9 Nov 2026</time><a href="/updates.html#2026-11-09">LedgerLens: everything that changed since launch</a></li>
+      </ul>
+      <p class="all"><a href="/updates.html">All updates</a></p>
     </section>
   </main>
 

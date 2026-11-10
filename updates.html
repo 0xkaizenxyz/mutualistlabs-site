@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Updates · Mutualist Labs</title>
+  <meta name="description" content="What changed at Mutualist Labs and in LedgerLens, newest first.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mutualistlabs.com/updates.html">
+  <meta property="og:title" content="Updates · Mutualist Labs">
+  <meta property="og:description" content="What changed at Mutualist Labs and in LedgerLens, newest first.">
+  <meta property="og:image" content="https://mutualistlabs.com/og.png">
+  <meta property="og:image:width" content="1500">
+  <meta property="og:image:height" content="500">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://mutualistlabs.com/og.png">
+  <style>
+    :root {
+      --bg: #fbfaf7;
+      --fg: #1b1b1a;
+      --muted: #5f5e5a;
+      --line: #e3e1da;
+      --accent: #2d6a4f;
+      --code-bg: #f1efe8;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1b1b1a;
+        --fg: #ecebe6;
+        --muted: #a3a29c;
+        --line: #2f2e2b;
+        --accent: #74c69d;
+        --code-bg: #242320;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font: 17px/1.6 -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    a { color: var(--accent); }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+    /* top bar */
+    .bar { display: flex; align-items: center; gap: 10px; padding: 22px 0; font-weight: 700; letter-spacing: -0.01em; }
+    .bar svg { width: 30px; height: 30px; border-radius: 7px; flex: none; }
+    .bar .brand { color: inherit; text-decoration: none; }
+    .bar nav { margin-left: auto; font-weight: 500; font-size: 0.95rem; }
+    .bar nav a { text-decoration: none; }
+    .bar nav a[aria-current] { color: var(--fg); }
+
+    .eyebrow { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
+
+    /* updates */
+    .doc { padding-bottom: 40px; }
+    .doc h1 { font-size: 1.9rem; line-height: 1.2; margin: 18px 0 10px; letter-spacing: -0.01em; }
+    .doc .lede { color: var(--muted); margin: 0 0 8px; }
+    .post { border-top: 1px solid var(--line); padding: 34px 0 10px; margin-top: 30px; scroll-margin-top: 12px; }
+    .post time { display: block; color: var(--muted); font-size: 0.88rem; margin: 0 0 6px; }
+    .post h2 { font-size: 1.4rem; line-height: 1.25; letter-spacing: -0.01em; margin: 0 0 14px; text-wrap: balance; }
+    .post h2 a { color: inherit; text-decoration: none; }
+    .post h2 a:hover { text-decoration: underline; }
+    .post h3 { font-size: 1rem; margin: 26px 0 6px; }
+    .post p { margin: 0 0 14px; }
+    .post ul { padding-left: 1.1em; margin: 0 0 14px; }
+    .post li { margin: 6px 0; }
+    .post li::marker { color: var(--accent); }
+    .post code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; font: 0.88em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; overflow-wrap: anywhere; }
+
+    footer { padding: 28px 0 40px; color: var(--muted); font-size: 0.88rem; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+
+    @media (max-width: 560px) {
+      .wrap { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap bar">
+    <svg viewBox="0 0 400 400" aria-hidden="true">
+      <rect width="400" height="400" fill="#2d6a4f"/>
+      <path d="M200,119.4 A90,90 0 0 1 200,280.6 A90,90 0 0 1 200,119.4 Z" fill="#b7e4c7"/>
+      <circle cx="160" cy="200" r="90" fill="none" stroke="#fbfaf7" stroke-width="22"/>
+      <circle cx="240" cy="200" r="90" fill="none" stroke="#fbfaf7" stroke-width="22"/>
+    </svg>
+    <a class="brand" href="/">Mutualist Labs</a>
+    <nav><a href="/updates.html" aria-current="page">Updates</a></nav>
+  </header>
+
+  <main class="wrap doc">
+    <h1>Updates</h1>
+    <p class="lede">What changed at Mutualist Labs and in LedgerLens, newest first.</p>
+
+    <!--
+      To post an update:
+      1. Copy the template below, paste it directly under this comment (outside it), and fill in
+         the id, the <time> (both the datetime attribute and the text), the heading link and the body.
+         Every post carries its date. The id is the date (YYYY-MM-DD); add a suffix
+         (2026-11-16-b) for a second post on one day.
+      2. On index.html, add the same date and title as the first <li> in the "Updates" list
+         (keep three at most).
+      3. Publish as usual (ops/runbook.md section 10.4b).
+
+      <article class="post" id="YYYY-MM-DD">
+        <time datetime="YYYY-MM-DD">D Month YYYY</time>
+        <h2><a href="#YYYY-MM-DD">Title</a></h2>
+        <p>Body. Sub-headings are <h3>; lists are <ul>.</p>
+      </article>
+    -->
+
+    <article class="post" id="2026-11-09">
+      <time datetime="2026-11-09">9 November 2026</time>
+      <h2><a href="#2026-11-09">LedgerLens: everything that changed since launch</a></h2>
+
+      <p>LedgerLens went live on the <a href="https://antseed.com">AntSeed</a> network on 6 November 2026. This post lists what has changed for buyers since then. Most of it came from asking it real questions and fixing what the answers got wrong.</p>
+
+      <h3>What it covers</h3>
+      <ul>
+        <li><strong>Periods up to 270 days.</strong> One question can cover up to 270 days. The answer works in 90-day parts and gives totals for the whole period by token and by sender, plus the largest priced receipts. It names any dates it did not cover.</li>
+        <li><strong>ETH on Ethereum is checked for the whole period,</strong> including ETH sent by contracts. On Base and Arbitrum the ETH check can still be incomplete for very busy wallets; when it is, the answer says so under "Data gaps".</li>
+        <li><strong>NFTs are not counted as ETH.</strong> On launch day some NFT transfers were being valued as ETH. They are now skipped and counted, and the answer says NFTs are not covered.</li>
+        <li><strong>The spam check looks at more tokens.</strong> Up to 25 unknown tokens per period are checked for mass distribution, up from 5. Any that were not checked are reported as not checked.</li>
+        <li><strong>Wrapped stablecoins are not flagged as spam by name alone.</strong> A token such as USDCx is checked against its transaction before any spam warning.</li>
+        <li><strong>Busy wallets.</strong> When a period holds more transfers than can be listed, the answer covers the oldest 200, gives the time where the list stops and reports counts after that point as "at least".</li>
+        <li><strong>Fewer partial answers.</strong> If the main history source fails on a wallet, the lookup is retried and then done a second way. A failing backup source no longer ends the search with nothing found.</li>
+        <li><strong>Long lists are capped.</strong> Wallets that received hundreds of different tokens get the main ones listed and a count of the rest.</li>
+      </ul>
+
+      <h3>Questions about one transaction</h3>
+      <ul>
+        <li><strong>Paste a transaction hash</strong> and LedgerLens looks it up first, without asking for your wallet. A payment that reverted is explained as one.</li>
+        <li><strong>USD value at receipt</strong> is given for stablecoin and ETH payments looked up by hash.</li>
+        <li><strong>ETH paid out by a contract inside a transaction is now seen.</strong> If that check fails, the answer says it is unknown whether ETH arrived; it does not guess.</li>
+        <li><strong>Your own swaps are not receipts.</strong> A swap the wallet made itself is reported as its own transaction, and totals from other senders are kept separate.</li>
+        <li><strong>Lookups are retried.</strong> A real transaction is no longer reported as missing or pending because one node did not answer.</li>
+        <li><strong>Pasted evidence is checked.</strong> A receipt or claim you paste is treated as a claim and looked up on-chain.</li>
+      </ul>
+
+      <h3>How answers read</h3>
+      <ul>
+        <li><strong>Every answer states what it checked:</strong> one line with the dates (whole UTC days) and the chain.</li>
+        <li><strong>Follow-ups are checked again.</strong> "Are you sure?" or "What about Base?" runs the lookup again on the same dates. If a re-check finds something more, it is given as an addition; a correct earlier answer is not taken back.</li>
+        <li><strong>Exact figures.</strong> Amounts are written in full, transaction hashes and addresses are never shortened, and times are given in ISO format.</li>
+        <li><strong>Counts add up.</strong> A table that shows fewer rows than exist says how many were left out. Whole-period counts of senders, tokens and unpriced transfers come from the whole period, not from one part of it.</li>
+        <li><strong>Spam is grouped by token</strong> with a count for each, and priced dust is told apart from lookalike tokens that have no price.</li>
+        <li><strong>Tax questions</strong> get the receipts answer straight away, with one line saying LedgerLens does not give tax advice.</li>
+        <li><strong>Transfers from the zero address</strong> are described as minted.</li>
+      </ul>
+
+      <h3>Scope and safety</h3>
+      <ul>
+        <li><strong>It says it is an AI.</strong> The first reply in every conversation ends with a notice that LedgerLens is an AI agent and that its answers can be wrong or incomplete. The notice is added if the model leaves it out, and it is not repeated in later replies.</li>
+        <li><strong>It stays on wallet receipts whichever app you use.</strong> It ignores your app's own instructions and tools (file, shell, web) and never asks your app to run one.</li>
+        <li><strong>Pasted secrets are removed.</strong> If a question contains something shaped like a password, seed phrase or key, it is taken out before the model sees it and the answer warns you. Never send one.</li>
+        <li><strong>Text from the chain is treated as data.</strong> Token names and error text from data providers cannot give LedgerLens instructions.</li>
+        <li><strong>Regions.</strong> LedgerLens is not offered in countries and regions where Anthropic's services are unsupported.</li>
+      </ul>
+
+      <h3>Privacy and security</h3>
+      <ul>
+        <li>A security and privacy review on 7 November found no blocker for what LedgerLens does and listed conditions. The fixes for them are live.</li>
+        <li>Request logs redact text shaped like a seed phrase, private key, API key, email address or card number.</li>
+        <li>Your app's system prompt is no longer logged as text, only as a hash and a length. Lines logged before this change are deleted by 9 December 2026.</li>
+        <li>Logs and weekly reports are deleted after 30 days. Operator alerts no longer include a buyer ID.</li>
+        <li>The <a href="/privacy.html">privacy notice</a> now states how long Anthropic, the model provider, keeps requests: 30 days under its standard retention.</li>
+        <li>The seller process runs sandboxed, with its agent files and configuration read-only, and will not start unless all of its billing and safety fixes are in place.</li>
+      </ul>
+
+      <h3>Known issues in the AntSeed app</h3>
+      <ul>
+        <li>Addresses in copied answers can show as <code>[address hidden]</code> (<a href="https://github.com/Antseed/antseed/issues/1506">AntSeed issue #1506</a>). The answers contain every address in full.</li>
+        <li>The desktop app lists the service as "Ledgerlens" (<a href="https://github.com/Antseed/antseed/issues/1559">#1559</a>). It is the same agent.</li>
+        <li>Answers always come back as a stream, and only the Anthropic Messages format is supported (<a href="https://github.com/Antseed/antseed/issues/1500">#1500</a>).</li>
+      </ul>
+
+      <p>LedgerLens is still unstaked, so AntSeed's automatic routing won't choose it; reach it by <a href="/#ledgerlens">pinning its peer ID</a>. Found a wrong answer? Email <a href="mailto:0xkaizenxyz@gmail.com">0xkaizenxyz@gmail.com</a> with the question you asked.</p>
+    </article>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Mutualist Labs</span>
+      <span>LedgerLens is an AI agent. Its answers are informational and can be wrong or incomplete; check anything important on a block explorer before relying on it. <a href="/privacy.html">Privacy</a></span>
+    </div>
+  </footer>
+</body>
+</html>
