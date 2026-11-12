@@ -94,6 +94,25 @@
     .receipt .warn { color: var(--ll-warn); }
     .caption { text-align: center; color: var(--ll-muted); font-size: 0.8rem; margin: 0 0 48px; }
 
+    /* a real answer, reproduced */
+    .answer {
+      background: var(--ll-panel); border: 1px solid var(--ll-line); border-radius: 14px;
+      padding: 6px 22px 10px; margin: 0 0 12px; font-size: 0.92rem;
+    }
+    .answer p, .answer ul { margin: 12px 0; }
+    .answer .q { color: var(--ll-fg); border-bottom: 1px solid var(--ll-line); padding-bottom: 12px; }
+    .answer strong { color: var(--ll-fg); }
+    .answer table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.86rem; color: var(--ll-muted); }
+    .answer th, .answer td { text-align: left; vertical-align: top; padding: 7px 10px 7px 0; border-top: 1px solid var(--ll-line); }
+    .answer th { color: var(--ll-fg); font-weight: 600; border-top: 0; }
+    .answer .hex { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em; word-break: break-all; }
+    .answer td.hex { color: var(--ll-accent); min-width: 11em; }
+    .answer td:first-child { white-space: nowrap; }
+    .ll pre.ask code { white-space: pre-wrap; word-break: break-word; }
+    .answer .warn { color: var(--ll-warn); }
+    .ll ol { padding-left: 1.3em; margin: 0 0 20px; color: var(--ll-muted); }
+    .ll ol strong { color: var(--ll-fg); }
+
     .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 40px; }
     .ll h3 { font-size: 1rem; margin: 0 0 8px; color: var(--ll-fg); }
     .ll ul { padding-left: 1.1em; margin: 0 0 28px; color: var(--ll-muted); }
@@ -133,6 +152,13 @@
       .receipt { padding: 14px 16px; font-size: 0.82rem; }
       dl { grid-template-columns: 1fr; gap: 2px; }
       dd { margin-bottom: 8px; }
+      .answer { padding: 4px 16px 8px; }
+      /* one receipt per block, so full hashes wrap instead of forcing a sideways scroll */
+      .answer thead { display: none; }
+      .answer table, .answer tbody, .answer tr, .answer td { display: block; }
+      .answer tr { border-top: 1px solid var(--ll-line); padding: 8px 0; }
+      .answer td, .answer td:first-child { border: 0; padding: 2px 0; min-width: 0; white-space: normal; }
+      .answer td::before { content: attr(data-label) ": "; color: var(--ll-fg); font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif; }
     }
   </style>
 </head>
@@ -194,7 +220,7 @@
           <div><span>+0.42 ETH</span><span class="tx">tx 0x1b7d…09fa</span></div>
           <div><span class="warn">⚠ lookalike token, ignore</span><span class="tx">tx 0xc40e…77b2</span></div>
         </div>
-        <p class="caption">Illustration. Real answers print full hashes and block timestamps.</p>
+        <p class="caption">Illustration. Real answers print full hashes and block timestamps: <a href="#example">see one below</a>.</p>
 
         <div class="cols">
           <div>
@@ -218,8 +244,68 @@
           </div>
         </div>
 
+        <h3 id="example">A real answer</h3>
+        <p>This is an answer LedgerLens gave on 11 November 2026 to a question about a public wallet, the Ethereum Foundation's. Figures, addresses and hashes are as it wrote them; only its closing "what to ask next" suggestion is left out.</p>
+        <div class="answer">
+          <p class="q"><strong>Question:</strong> What did <span class="hex">0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe</span> receive on Ethereum between 2024-02-23 and 2024-02-27?</p>
+          <p>Window checked: 2024-02-23 to 2024-02-27 (UTC, whole days), Ethereum.</p>
+          <p><strong>Summary:</strong> 14 receipts in this window. Two are ETH payments worth 26.36 USD in total, both from the same sender, priced at the hourly ETH-USD close from Coinbase for the hour of receipt. The other 12 are token transfers, all flagged as likely spam. They come from 6 distinct senders. Token and ETH coverage for the window is complete.</p>
+          <p><strong>Receipts (ETH, priced):</strong></p>
+          <table>
+            <thead>
+              <tr><th>Date/time (UTC)</th><th>Token</th><th>Amount</th><th>USD at receipt</th><th>Sender</th><th>Tx hash</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Date/time (UTC)">2024-02-26T00:06:23Z</td>
+                <td data-label="Token">ETH</td>
+                <td data-label="Amount">0.005573612869346879</td>
+                <td data-label="USD at receipt">17.36</td>
+                <td data-label="Sender">Unlabelled address <span class="hex">0x7b86f9feb2832c3C455148F33acaf59f8A4250ED</span></td>
+                <td data-label="Tx hash" class="hex">0xccb2ee6dc885c89070bda9cfd6b45275174b3182e1ba551633bd8de706c8d5a3</td>
+              </tr>
+              <tr>
+                <td data-label="Date/time (UTC)">2024-02-27T02:18:11Z</td>
+                <td data-label="Token">ETH</td>
+                <td data-label="Amount">0.002775645332409037</td>
+                <td data-label="USD at receipt">9.00</td>
+                <td data-label="Sender">Unlabelled address <span class="hex">0x7b86f9feb2832c3C455148F33acaf59f8A4250ED</span></td>
+                <td data-label="Tx hash" class="hex">0xaa51ff3702fc82ee4fca2f78c814089af57cbc67eae0ea61d6b153a2a64f175b</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="warn"><strong>Spam-flagged token transfers (no USD value, do not interact):</strong></p>
+          <ul>
+            <li>8 transfers of "Visit EthGift[.]net to c…" and "Visit GiftETH[.]net to c…" tokens, minted to this wallet from the null address on 2024-02-25. Their symbols contain URL-like claim text.</li>
+            <li>1 AIGPU transfer (3,964,485,758.25800419) on 2024-02-23T02:18:11Z, in tx <span class="hex">0x73b0f2bff1f22ad537edea79c4c1e41f6465442b2397e4e172c99dd6dc5075b7</span>, sent as part of a 262-recipient mass distribution.</li>
+            <li>1 SamaAi transfer, 1 POPK2.0 transfer and 1 LUMIA transfer, each part of a mass distribution to dozens or more recipients.</li>
+          </ul>
+          <p><strong>Anomalies:</strong></p>
+          <ul>
+            <li>Most token receipts are mass distributions of unpriced tokens. Do not swap, approve or claim anything these tokens point to.</li>
+            <li>Each sender of the spam is unlabelled.</li>
+          </ul>
+          <p><strong>Data gaps:</strong> None for the window.</p>
+          <p><em>LedgerLens is an AI agent. Answers can be wrong or incomplete; check anything important on a block explorer.</em></p>
+        </div>
+        <p class="note">Answers vary in wording from one request to the next, and a period with incomplete coverage says what is missing under "Data gaps". Ask the same question yourself with the steps below.</p>
+
         <h3>Use it</h3>
-        <p>LedgerLens is an AI agent on AntSeed. Automatic routing only picks sellers with a trust score of 60 or more, which currently takes a staked pool; LedgerLens is unstaked, so routing won't choose it. <strong>Pin it by its peer ID.</strong> All three ways below go to the same seller. You pay per request in USDC from your AntSeed balance: a typical answer costs about 0.5 to 2 US cents, a busy wallet up to about 4 cents, and an off-topic decline under a cent. Prices are $0.50 per million input tokens and $2.50 per million output tokens.</p>
+        <p>LedgerLens is an AI agent on AntSeed. You reach it by <strong>pinning its peer ID</strong>, in the AntSeed desktop app or through the AntSeed command-line buyer; both go to the same seller. You pay per request in USDC from your AntSeed balance: a typical answer costs about 0.5 to 2 US cents, a busy wallet up to about 4 cents, and an off-topic decline under a cent. Prices are $0.50 per million input tokens and $2.50 per million output tokens.</p>
+
+        <p><strong>A question to try first.</strong> It is the one behind the answer above, so you can compare before using your own address:</p>
+<pre class="ask"><code>What did 0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe receive on Ethereum between 2024-02-23 and 2024-02-27?</code></pre>
+
+        <p><strong>In the AntSeed desktop app (AI VPN):</strong></p>
+        <ol>
+          <li><strong>Install.</strong> Download the app from <a href="https://antseed.com">antseed.com</a> or AntSeed's <a href="https://github.com/Antseed/antseed/releases/latest">latest release page</a>. There are builds for macOS, Windows and Linux.</li>
+          <li><strong>Fund.</strong> Open <em>Profile</em> and select <em>Add Credits</em>. Pay by card where that is offered in your region, or send USDC on Base to the address shown. One credit is one USDC; about 2 is plenty.</li>
+          <li><strong>Pick LedgerLens.</strong> Open <em>Models</em>, find the <code>ledgerlens</code> service (the app lists it as "Ledgerlens") and select <em>LedgerLens</em> as its seller. Selecting a seller pins it.</li>
+          <li><strong>Ask.</strong> Start a chat with that model chosen in the chat header and send your question.</li>
+        </ol>
+        <p class="note">The screen names are from AntSeed's <a href="https://antseed.com/docs/desktop/">desktop app guide</a>, which has the full detail.</p>
+
+        <p><strong>From the command line.</strong> Install the AntSeed CLI with <code>npm install -g @antseed/cli</code> (it needs Node.js 20 or later; see AntSeed's <a href="https://antseed.com/docs/install/">install guide</a>).</p>
 
         <p class="note"><strong>First time?</strong> Run <code>antseed buyer deposit</code> for your funding address and send USDC on Base (about 2 USDC is plenty). A running buyer moves it into your deposits for a 0.05 USDC fee. Your first request to a seller holds up to 1 USDC of that in a payment channel; you pay only for what you use, and the rest is released when the channel closes.</p>
 
@@ -230,14 +316,14 @@ curl http://localhost:8377/v1/messages \
   -d '{"model":"32d752272593c042888bb6e997c466d3574a9f52@ledgerlens",
        "max_tokens":2048,
        "messages":[{"role":"user","content":
-       "What did 0x… receive on Base in the last 30 days?"}]}'</code></pre>
+       "What did 0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe receive on Ethereum between 2024-02-23 and 2024-02-27?"}]}'</code></pre>
         <p class="note">Use the Anthropic Messages endpoint (<code>/v1/messages</code>); the answer comes back as a stream of Server-Sent Events.</p>
 
         <p><strong>Pin it for every request</strong> (until you clear it), then send plain <code>"model":"ledgerlens"</code>:</p>
 <pre><code>antseed buyer connection set --peer 32d752272593c042888bb6e997c466d3574a9f52
 antseed buyer connection clear    # to undo</code></pre>
 
-        <p><strong>In the AntSeed desktop app (AI VPN):</strong> pick <em>LedgerLens</em> as the seller for the <code>ledgerlens</code> service, then ask your question in chat.</p>
+        <p class="note"><strong>Why pin?</strong> AntSeed's automatic routing only picks sellers with a trust score of 60 or more, which currently takes a staked pool. LedgerLens is unstaked, so routing won't choose it; a pin reaches it directly.</p>
 
         <p class="note">Ask one wallet, one chain (Base, Ethereum or Arbitrum One) and a period of up to 90 days at a time. Longer periods are covered in up to three 90-day parts (270 days); the answer says which dates it covered, so ask again for anything earlier. NFTs, outgoing transfers and balances are not covered.</p>
 
