@@ -113,6 +113,29 @@
       </article>
     -->
 
+    <article class="post" id="2026-11-15">
+      <time datetime="2026-11-15">15 November 2026</time>
+      <h2><a href="#2026-11-15">Audit fixes: prices, address poisoning and the published limits</a></h2>
+
+      <p>On 9 November an independent functional audit sent 61 questions to LedgerLens and checked the answers against the chain. On 14 November the same 61 questions were sent again. Every critical and high finding is now closed.</p>
+
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>Genuine WBTC was reported as spam.</strong> A wrong contract address in LedgerLens's token list made 502 real WBTC look like a fake. The list is now checked on-chain before every update, and that wallet's WBTC is priced at 29.5 million USD.</li>
+        <li><strong>Genuine tokens were called lookalikes.</strong> A token is now called a lookalike only with a second signal (a mass distribution, a copied contract address, bait text). Aave deposit tokens are recognised. Other tokens LedgerLens does not know are called "an unverified token, not in LedgerLens's registry".</li>
+        <li><strong>Stablecoins were always valued at 1.00.</strong> USDC, USDT and DAI now use their market price. During the March 2023 depeg USDC is valued at 0.906, and the answer says so.</li>
+        <li><strong>Prices could come from up to an hour after the receipt.</strong> Prices now come from the last full minute before each receipt, else the full hour before, never later.</li>
+        <li><strong>Relative periods and future dates.</strong> "Last 30 days" and "this month" work, and a period that has not happened yet is reported as such, not as empty.</li>
+        <li><strong>No chain given.</strong> LedgerLens now asks which chain instead of picking one.</li>
+        <li><strong>Address poisoning.</strong> The old check compared senders only with each other. It now compares every address with the addresses the wallet paid itself, over the period and the 30 days before. Tested on the documented 3 May 2024 attack in which 1,155 WBTC was sent to a lookalike: the audit's answer missed it; LedgerLens now names the lookalike, the address it imitates, the planted entries and the payment.</li>
+        <li><strong>Transfer counts.</strong> Two transfers of the same token in one transaction are now counted as two.</li>
+        <li><strong>Answers no longer open with planning text</strong> ("This is the first reply, so I'll start by checking…").</li>
+      </ul>
+
+      <h3>Published limits</h3>
+      <p>The home page now lists what LedgerLens covers and where it stops: one wallet and one chain per question, up to 270 days, up to 200 transfers listed per 90-day part, which tokens have a price, and how far back the address-poisoning check looks. <a href="/#limits">See the limits.</a></p>
+    </article>
+
     <article class="post" id="2026-11-09">
       <time datetime="2026-11-09">9 November 2026</time>
       <h2><a href="#2026-11-09">LedgerLens: everything that changed since launch</a></h2>

@@ -126,6 +126,8 @@
     .ll p { color: var(--ll-muted); }
 
     .note { color: var(--ll-muted); font-size: 0.92rem; }
+    .limits { font-size: 0.92rem; }
+    .limits li { margin-bottom: 6px; }
     dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; margin: 0; }
     dt { color: var(--ll-muted); }
     dd { margin: 0; min-width: 0; }
@@ -213,7 +215,7 @@
           Agent 01 · LedgerLens
         </p>
         <h2 class="headline">Ask what a wallet received. <em>Every claim cited.</em></h2>
-        <p class="sub">A read-only agent. Give it a public address and a question, and it explains the incoming transfers: which tokens, from whom, when, their fair value at receipt, and anything that looks like spam or address poisoning.</p>
+        <p class="sub">A read-only agent. Give it a public address and a question, and it explains the incoming transfers: which tokens, from whom, when, their fair value at receipt, and anything that looks like spam, or like address poisoning aimed at an address the wallet has paid.</p>
 
         <div class="receipt" role="img" aria-label="Example answer: two receipts and a lookalike-token warning, each with a transaction hash">
           <div><span>+1,250.00 USDC</span><span class="tx">tx 0x8f3a…c21e</span></div>
@@ -228,8 +230,9 @@
             <ul>
               <li>Incoming transfers on Base, Ethereum mainnet and Arbitrum One</li>
               <li>Senders, with labels only where a curated label exists</li>
-              <li>Fair value at receipt from a named price source</li>
+              <li>Fair value at receipt: the exchange price in the last full minute before each receipt (else the full hour before), never a later price; stablecoins at their market price</li>
               <li>Spam, dust and lookalike-token warnings</li>
+              <li>Address-poisoning warnings: a lookalike of an address the wallet paid, planted in its history</li>
               <li>A clear "Data gaps" line whenever coverage is incomplete</li>
             </ul>
           </div>
@@ -245,7 +248,7 @@
         </div>
 
         <h3 id="example">A real answer</h3>
-        <p>This is an answer LedgerLens gave on 11 November 2026 to a question about a public wallet, the Ethereum Foundation's. Figures, addresses and hashes are as it wrote them; only its closing "what to ask next" suggestion is left out.</p>
+        <p>This is an answer LedgerLens gave on 11 November 2026 to a question about a public wallet, the Ethereum Foundation's. Figures, addresses and hashes are as it wrote them; only its closing "what to ask next" suggestion is left out. Since 13 November prices use the minute before each receipt, so the same question now gives 26.34 USD instead of 26.36, and the answer also gives a sentence on address poisoning.</p>
         <div class="answer">
           <p class="q"><strong>Question:</strong> What did <span class="hex">0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe</span> receive on Ethereum between 2024-02-23 and 2024-02-27?</p>
           <p>Window checked: 2024-02-23 to 2024-02-27 (UTC, whole days), Ethereum.</p>
@@ -325,7 +328,17 @@ antseed buyer connection clear    # to undo</code></pre>
 
         <p class="note"><strong>Why pin?</strong> AntSeed's automatic routing only picks sellers with a trust score of 60 or more, which currently takes a staked pool. LedgerLens is unstaked, so routing won't choose it; a pin reaches it directly.</p>
 
-        <p class="note">Ask one wallet, one chain (Base, Ethereum or Arbitrum One) and a period of up to 90 days at a time. Longer periods are covered in up to three 90-day parts (270 days); the answer says which dates it covered, so ask again for anything earlier. NFTs, outgoing transfers and balances are not covered.</p>
+        <h3 id="limits">Limits</h3>
+        <ul class="limits">
+          <li><strong>One wallet, one chain per question</strong> (Base, Ethereum or Arbitrum One). Without a chain it asks which.</li>
+          <li><strong>Up to 270 days per question,</strong> covered in up to three 90-day parts. The answer names any dates it did not cover.</li>
+          <li><strong>Up to 200 transfers listed per 90-day part.</strong> A busier wallet gets the oldest 200, the time where the list stops, and counts after that point as "at least".</li>
+          <li><strong>Prices:</strong> tokens on LedgerLens's price list (about 35, including ETH, WBTC, the major stablecoins and the main DeFi tokens), from Coinbase or Kraken, at the last full minute before each receipt, else the full hour before. A stablecoin off its 1.00 peg is valued at its market price and the answer says so. Other tokens get no USD value and are called "outside LedgerLens's price list".</li>
+          <li><strong>Address poisoning</strong> is checked against addresses the wallet paid itself, over the period and the 30 days before it. For very busy wallets those payments cannot be read and the answer says poisoning was not checked; it never says none was found.</li>
+          <li><strong>ETH payments</strong> are checked for the whole period on Ethereum; on Base and Arbitrum the ETH check can be incomplete for very busy wallets, and the answer says so.</li>
+          <li><strong>Not covered:</strong> NFTs, what a wallet sent, and balances.</li>
+          <li><strong>Cost:</strong> one wallet on one chain for up to 270 days is the largest question it takes; a typical answer costs 0.5 to 2 US cents.</li>
+        </ul>
 
         <p class="note">In the desktop app, addresses in copied answers can show as <code>[address hidden]</code>. That comes from the app (<a href="https://github.com/Antseed/antseed/issues/1506">AntSeed issue #1506</a>), not LedgerLens; the answers themselves contain every address in full.</p>
 
@@ -345,6 +358,7 @@ antseed buyer connection clear    # to undo</code></pre>
       <!-- Newest first, three at most. Full posts live in updates.html. -->
       <!-- <li><time datetime="YYYY-MM-DD">D Mon YYYY</time><a href="/updates.html#YYYY-MM-DD">Title</a></li> -->
       <ul>
+        <li><time datetime="2026-11-15">15 Nov 2026</time><a href="/updates.html#2026-11-15">Audit fixes: prices, address poisoning and the published limits</a></li>
         <li><time datetime="2026-11-09">9 Nov 2026</time><a href="/updates.html#2026-11-09">LedgerLens: everything that changed since launch</a></li>
       </ul>
       <p class="all"><a href="/updates.html">All updates</a></p>
