@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Limits · LedgerLens</title>
+  <meta name="description" content="What LedgerLens covers and where it stops: chains, periods, transfer caps, prices, address-poisoning checks, cost and time.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mutualistlabs.com/limits.html">
+  <meta property="og:title" content="Limits · LedgerLens">
+  <meta property="og:description" content="Specialist AI agents that work with each other, and with yours.">
+  <meta property="og:image" content="https://mutualistlabs.com/og.png">
+  <meta property="og:image:width" content="1500">
+  <meta property="og:image:height" content="500">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://mutualistlabs.com/og.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="wrap bar">
+    <svg viewBox="0 0 400 400" aria-hidden="true">
+      <rect width="400" height="400" fill="#2d6a4f"/>
+      <path d="M200,119.4 A90,90 0 0 1 200,280.6 A90,90 0 0 1 200,119.4 Z" fill="#b7e4c7"/>
+      <circle cx="160" cy="200" r="90" fill="none" stroke="#fbfaf7" stroke-width="22"/>
+      <circle cx="240" cy="200" r="90" fill="none" stroke="#fbfaf7" stroke-width="22"/>
+    </svg>
+    <a class="brand" href="/">Mutualist Labs</a>
+    <nav aria-label="Site"><a href="/example.html">Example</a><a href="/start.html">Get started</a><a href="/limits.html" aria-current="page">Limits</a><a href="/updates.html">Updates</a></nav>
+  </header>
+
+  <main>
+    <section class="ll page">
+      <div class="wrap">
+        <p class="eyebrow">
+          <svg viewBox="0 0 400 400" aria-hidden="true">
+            <rect width="400" height="400" fill="#141413"/>
+            <path d="M200,72 A150,150 0 0 1 200,328 A150,150 0 0 1 200,72 Z" fill="#74c69d"/>
+            <g stroke="#141413" stroke-width="16" stroke-linecap="round">
+              <line x1="160" y1="155" x2="240" y2="155"/>
+              <line x1="160" y1="200" x2="222" y2="200"/>
+              <line x1="160" y1="245" x2="240" y2="245"/>
+            </g>
+          </svg>
+          Agent 01 · LedgerLens
+        </p>
+        <h1 class="headline">Limits. <em>Where it stops.</em></h1>
+        <p class="sub">What one question can cover, which tokens get a price, and what an answer says when coverage is incomplete.</p>
+
+        <ul class="limits">
+          <li><strong>Chains:</strong> Base, Ethereum and Arbitrum One. Without a chain it asks which. One question can cover several wallets or chains; each wallet on each chain is a separate lookup and adds to the cost and the time.</li>
+          <li><strong>Up to 270 days per question,</strong> covered in up to three 90-day parts. The answer names any dates it did not cover.</li>
+          <li><strong>Up to 200 transfers listed per 90-day part.</strong> A busier wallet gets the oldest 200, the time where the list stops, and counts after that point as "at least".</li>
+          <li><strong>Prices:</strong> tokens on LedgerLens's price list (about 35, including ETH, WBTC, the major stablecoins and the main DeFi tokens), from Coinbase or Kraken, at the last full minute before each receipt, else the full hour before. A stablecoin off its 1.00 peg is valued at its market price and the answer says so. Other tokens get no USD value and are called "outside LedgerLens's price list".</li>
+          <li><strong>Address poisoning</strong> is checked against addresses the wallet paid itself, over the period and the 30 days before it. For very busy wallets those payments cannot be read and the answer says poisoning was not checked; it never says none was found.</li>
+          <li><strong>ETH payments</strong> are checked for the whole period on Ethereum; on Base and Arbitrum the ETH check can be incomplete for very busy wallets, and the answer says so.</li>
+          <li><strong>Not covered:</strong> NFTs, what a wallet sent, and balances.</li>
+          <li><strong>Cost and time:</strong> you pay for what a question uses. One wallet on one chain typically costs 0.5 to 2 US cents and rarely more than 4 cents, and takes a few seconds. Two wallets on three chains cost about 6 to 11 cents and can take two to three minutes; some apps may stop waiting before then, so very large questions are best asked one wallet or chain at a time.</li>
+        </ul>
+
+        <p class="note">In the desktop app, addresses in copied answers can show as <code>[address hidden]</code>. That comes from the app (<a href="https://github.com/Antseed/antseed/issues/1506">AntSeed issue #1506</a>), not LedgerLens; the answers themselves contain every address in full.</p>
+
+        <nav class="next" aria-label="More about LedgerLens"><a href="/start.html">← Get started</a><span></span></nav>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Mutualist Labs</span>
+      <span>LedgerLens is an AI agent. Its answers are informational and can be wrong or incomplete; check anything important on a block explorer before relying on it. Not offered in countries and regions where Anthropic's services are unsupported. <a href="/privacy.html">Privacy</a></span>
+    </div>
+  </footer>
+</body>
+</html>

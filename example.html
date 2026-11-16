@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A real answer · LedgerLens</title>
+  <meta name="description" content="A real LedgerLens answer about the Ethereum Foundation wallet, with every figure, address and transaction hash as the agent wrote them.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mutualistlabs.com/example.html">
+  <meta property="og:title" content="A real answer · LedgerLens">
+  <meta property="og:description" content="Specialist AI agents that work with each other, and with yours.">
+  <meta property="og:image" content="https://mutualistlabs.com/og.png">
+  <meta property="og:image:width" content="1500">
+  <meta property="og:image:height" content="500">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://mutualistlabs.com/og.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="wrap bar">
+    <svg viewBox="0 0 400 400" aria-hidden="true">
+      <rect width="400" height="400" fill="#2d6a4f"/>
+      <path d="M200,119.4 A90,90 0 0 1 200,280.6 A90,90 0 0 1 200,119.4 Z" fill="#b7e4c7"/>
+      <circle cx="160" cy="200" r="90" fill="none" stroke="#fbfaf7" stroke-width="22"/>
+      <circle cx="240" cy="200" r="90" fill="none" stroke="#fbfaf7" stroke-width="22"/>
+    </svg>
+    <a class="brand" href="/">Mutualist Labs</a>
+    <nav aria-label="Site"><a href="/example.html" aria-current="page">Example</a><a href="/start.html">Get started</a><a href="/limits.html">Limits</a><a href="/updates.html">Updates</a></nav>
+  </header>
+
+  <main>
+    <section class="ll page">
+      <div class="wrap">
+        <p class="eyebrow">
+          <svg viewBox="0 0 400 400" aria-hidden="true">
+            <rect width="400" height="400" fill="#141413"/>
+            <path d="M200,72 A150,150 0 0 1 200,328 A150,150 0 0 1 200,72 Z" fill="#74c69d"/>
+            <g stroke="#141413" stroke-width="16" stroke-linecap="round">
+              <line x1="160" y1="155" x2="240" y2="155"/>
+              <line x1="160" y1="200" x2="222" y2="200"/>
+              <line x1="160" y1="245" x2="240" y2="245"/>
+            </g>
+          </svg>
+          Agent 01 · LedgerLens
+        </p>
+        <h1 class="headline">A real answer, <em>as it was given.</em></h1>
+        <p class="sub">One question about a public wallet, and the full answer LedgerLens returned.</p>
+
+        <p>This is an answer LedgerLens gave on 11 November 2026 to a question about a public wallet, the Ethereum Foundation's. Figures, addresses and hashes are as it wrote them; only its closing "what to ask next" suggestion is left out. Since 13 November prices use the minute before each receipt, so the same question now gives 26.34 USD instead of 26.36, and the answer also gives a sentence on address poisoning.</p>
+        <div class="answer">
+          <p class="q"><strong>Question:</strong> What did <span class="hex">0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe</span> receive on Ethereum between 2024-02-23 and 2024-02-27?</p>
+          <p>Window checked: 2024-02-23 to 2024-02-27 (UTC, whole days), Ethereum.</p>
+          <p><strong>Summary:</strong> 14 receipts in this window. Two are ETH payments worth 26.36 USD in total, both from the same sender, priced at the hourly ETH-USD close from Coinbase for the hour of receipt. The other 12 are token transfers, all flagged as likely spam. They come from 6 distinct senders. Token and ETH coverage for the window is complete.</p>
+          <p><strong>Receipts (ETH, priced):</strong></p>
+          <table>
+            <thead>
+              <tr><th>Date/time (UTC)</th><th>Token</th><th>Amount</th><th>USD at receipt</th><th>Sender</th><th>Tx hash</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Date/time (UTC)">2024-02-26T00:06:23Z</td>
+                <td data-label="Token">ETH</td>
+                <td data-label="Amount">0.005573612869346879</td>
+                <td data-label="USD at receipt">17.36</td>
+                <td data-label="Sender">Unlabelled address <span class="hex">0x7b86f9feb2832c3C455148F33acaf59f8A4250ED</span></td>
+                <td data-label="Tx hash" class="hex">0xccb2ee6dc885c89070bda9cfd6b45275174b3182e1ba551633bd8de706c8d5a3</td>
+              </tr>
+              <tr>
+                <td data-label="Date/time (UTC)">2024-02-27T02:18:11Z</td>
+                <td data-label="Token">ETH</td>
+                <td data-label="Amount">0.002775645332409037</td>
+                <td data-label="USD at receipt">9.00</td>
+                <td data-label="Sender">Unlabelled address <span class="hex">0x7b86f9feb2832c3C455148F33acaf59f8A4250ED</span></td>
+                <td data-label="Tx hash" class="hex">0xaa51ff3702fc82ee4fca2f78c814089af57cbc67eae0ea61d6b153a2a64f175b</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="warn"><strong>Spam-flagged token transfers (no USD value, do not interact):</strong></p>
+          <ul>
+            <li>8 transfers of "Visit EthGift[.]net to c…" and "Visit GiftETH[.]net to c…" tokens, minted to this wallet from the null address on 2024-02-25. Their symbols contain URL-like claim text.</li>
+            <li>1 AIGPU transfer (3,964,485,758.25800419) on 2024-02-23T02:18:11Z, in tx <span class="hex">0x73b0f2bff1f22ad537edea79c4c1e41f6465442b2397e4e172c99dd6dc5075b7</span>, sent as part of a 262-recipient mass distribution.</li>
+            <li>1 SamaAi transfer, 1 POPK2.0 transfer and 1 LUMIA transfer, each part of a mass distribution to dozens or more recipients.</li>
+          </ul>
+          <p><strong>Anomalies:</strong></p>
+          <ul>
+            <li>Most token receipts are mass distributions of unpriced tokens. Do not swap, approve or claim anything these tokens point to.</li>
+            <li>Each sender of the spam is unlabelled.</li>
+          </ul>
+          <p><strong>Data gaps:</strong> None for the window.</p>
+          <p><em>LedgerLens is an AI agent. Answers can be wrong or incomplete; check anything important on a block explorer.</em></p>
+        </div>
+        <p class="note">Answers vary in wording from one request to the next, and a period with incomplete coverage says what is missing under "Data gaps". Ask the same question yourself: see <a href="/start.html">Get started</a>.</p>
+
+        <nav class="next" aria-label="More about LedgerLens"><a href="/">← Overview</a><a href="/start.html">Get started →</a></nav>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Mutualist Labs</span>
+      <span>LedgerLens is an AI agent. Its answers are informational and can be wrong or incomplete; check anything important on a block explorer before relying on it. Not offered in countries and regions where Anthropic's services are unsupported. <a href="/privacy.html">Privacy</a></span>
+    </div>
+  </footer>
+</body>
+</html>

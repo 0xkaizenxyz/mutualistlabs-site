@@ -16,153 +16,14 @@
   <meta property="og:image:height" content="500">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://mutualistlabs.com/og.png">
-  <style>
-    :root {
-      --bg: #fbfaf7;
-      --fg: #1b1b1a;
-      --muted: #5f5e5a;
-      --line: #e3e1da;
-      --accent: #2d6a4f;
-      --accent-soft: #74c69d;
-      --code-bg: #f1efe8;
-      /* LedgerLens keeps its dark identity in both themes */
-      --ll-bg: #141413;
-      --ll-panel: #1f1e1c;
-      --ll-line: #2c2b28;
-      --ll-fg: #ecebe6;
-      --ll-muted: #a3a29c;
-      --ll-accent: #74c69d;
-      --ll-warn: #e9a23b;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #1b1b1a;
-        --fg: #ecebe6;
-        --muted: #a3a29c;
-        --line: #2f2e2b;
-        --accent: #74c69d;
-        --accent-soft: #74c69d;
-        --code-bg: #242320;
-        --ll-bg: #141413;
-      }
-    }
-    * { box-sizing: border-box; }
-    html { -webkit-text-size-adjust: 100%; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--fg);
-      font: 17px/1.6 -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    }
-    a { color: var(--accent); }
-    .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
-
-    /* top bar */
-    .bar { display: flex; align-items: center; gap: 10px; padding: 22px 0; font-weight: 700; letter-spacing: -0.01em; }
-    .bar svg { width: 30px; height: 30px; border-radius: 7px; flex: none; }
-    .bar nav { margin-left: auto; font-weight: 500; font-size: 0.95rem; }
-    .bar nav a { text-decoration: none; }
-
-    /* shared brand type */
-    .eyebrow { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
-    .headline { font-size: clamp(2rem, 6vw, 3.1rem); line-height: 1.12; font-weight: 700; letter-spacing: -0.025em; margin: 0; text-wrap: balance; }
-    .headline em { font-style: normal; color: var(--accent); }
-
-    /* hero */
-    .hero { text-align: center; padding-top: 64px; padding-bottom: 56px; }
-    .chain { display: block; width: 236px; max-width: 70%; height: auto; margin: 34px auto 30px; color: var(--accent); }
-    .chain .fill { fill: var(--accent-soft); opacity: 0.55; }
-    .hero p.intro { max-width: 560px; margin: 0 auto; color: var(--muted); font-size: 1.08rem; }
-
-    /* LedgerLens band */
-    .ll { background: var(--ll-bg); color: var(--ll-fg); padding: 72px 0 64px; }
-    .ll a { color: var(--ll-accent); }
-    .ll .eyebrow { color: var(--ll-accent); display: flex; align-items: center; justify-content: center; gap: 10px; }
-    .ll .eyebrow svg { width: 22px; height: 22px; border-radius: 5px; }
-    .ll .headline { font-size: clamp(1.7rem, 5vw, 2.5rem); text-align: center; }
-    .ll .headline em { color: var(--ll-accent); }
-    .ll .sub { text-align: center; color: var(--ll-muted); max-width: 560px; margin: 16px auto 0; }
-
-    .receipt {
-      max-width: 600px; margin: 36px auto 8px;
-      background: var(--ll-panel); border: 1px solid var(--ll-line); border-radius: 14px;
-      padding: 18px 26px;
-      font: 0.95rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .receipt div { display: flex; justify-content: space-between; gap: 16px; padding: 7px 0; }
-    .receipt .tx { color: var(--ll-accent); white-space: nowrap; }
-    .receipt .warn { color: var(--ll-warn); }
-    .caption { text-align: center; color: var(--ll-muted); font-size: 0.8rem; margin: 0 0 48px; }
-
-    /* a real answer, reproduced */
-    .answer {
-      background: var(--ll-panel); border: 1px solid var(--ll-line); border-radius: 14px;
-      padding: 6px 22px 10px; margin: 0 0 12px; font-size: 0.92rem;
-    }
-    .answer p, .answer ul { margin: 12px 0; }
-    .answer .q { color: var(--ll-fg); border-bottom: 1px solid var(--ll-line); padding-bottom: 12px; }
-    .answer strong { color: var(--ll-fg); }
-    .answer table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.86rem; color: var(--ll-muted); }
-    .answer th, .answer td { text-align: left; vertical-align: top; padding: 7px 10px 7px 0; border-top: 1px solid var(--ll-line); }
-    .answer th { color: var(--ll-fg); font-weight: 600; border-top: 0; }
-    .answer .hex { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em; word-break: break-all; }
-    .answer td.hex { color: var(--ll-accent); min-width: 11em; }
-    .answer td:first-child { white-space: nowrap; }
-    .ll pre.ask code { white-space: pre-wrap; word-break: break-word; }
-    .answer .warn { color: var(--ll-warn); }
-    .ll ol { padding-left: 1.3em; margin: 0 0 20px; color: var(--ll-muted); }
-    .ll ol strong { color: var(--ll-fg); }
-
-    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 40px; }
-    .ll h3 { font-size: 1rem; margin: 0 0 8px; color: var(--ll-fg); }
-    .ll ul { padding-left: 1.1em; margin: 0 0 28px; color: var(--ll-muted); }
-    .ll li { margin: 5px 0; }
-    .ll li::marker { color: var(--ll-accent); }
-
-    .ll code, .ll pre { font: 0.88em/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: var(--ll-panel); border-radius: 6px; }
-    .ll code { padding: 1px 5px; word-break: break-all; }
-    .ll pre { padding: 16px 18px; overflow-x: auto; border: 1px solid var(--ll-line); margin: 0 0 32px; }
-    .ll pre code { padding: 0; background: none; word-break: normal; }
-    .ll p { color: var(--ll-muted); }
-
-    .note { color: var(--ll-muted); font-size: 0.92rem; }
-    .limits { font-size: 0.92rem; }
-    .limits li { margin-bottom: 6px; }
-    dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; margin: 0; }
-    dt { color: var(--ll-muted); }
-    dd { margin: 0; min-width: 0; }
-
-    /* latest updates */
-    .updates { padding-top: 56px; padding-bottom: 28px; }
-    .updates ul { list-style: none; padding: 0; margin: 0 0 16px; border-top: 1px solid var(--line); }
-    .updates li { display: flex; gap: 6px 20px; padding: 12px 0; border-bottom: 1px solid var(--line); }
-    .updates time { flex: none; width: 7.5em; color: var(--muted); font-size: 0.92rem; padding-top: 1px; }
-    .updates li a { font-weight: 600; text-decoration: none; }
-    .updates li a:hover { text-decoration: underline; }
-    .updates .all { font-size: 0.95rem; margin: 0; }
-
-    footer { padding: 28px 0 40px; color: var(--muted); font-size: 0.88rem; }
-    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
-
-    @media (max-width: 560px) {
-      .wrap { padding: 0 16px; }
-      .hero { padding-top: 44px; padding-bottom: 44px; }
-      .ll { padding: 52px 0 48px; }
-      .cols { grid-template-columns: 1fr; }
-      .updates li { flex-direction: column; }
-      .updates time { width: auto; }
-      .receipt { padding: 14px 16px; font-size: 0.82rem; }
-      dl { grid-template-columns: 1fr; gap: 2px; }
-      dd { margin-bottom: 8px; }
-      .answer { padding: 4px 16px 8px; }
-      /* one receipt per block, so full hashes wrap instead of forcing a sideways scroll */
-      .answer thead { display: none; }
-      .answer table, .answer tbody, .answer tr, .answer td { display: block; }
-      .answer tr { border-top: 1px solid var(--ll-line); padding: 8px 0; }
-      .answer td, .answer td:first-child { border: 0; padding: 2px 0; min-width: 0; white-space: normal; }
-      .answer td::before { content: attr(data-label) ": "; color: var(--ll-fg); font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif; }
-    }
-  </style>
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    // Old one-page anchors now live on their own pages.
+    (function () {
+      var m = { "#example": "/example.html", "#limits": "/limits.html" };
+      if (m[location.hash]) location.replace(m[location.hash]);
+    })();
+  </script>
 </head>
 <body>
   <header class="wrap bar">
@@ -172,8 +33,8 @@
       <circle cx="160" cy="200" r="90" fill="none" stroke="#fbfaf7" stroke-width="22"/>
       <circle cx="240" cy="200" r="90" fill="none" stroke="#fbfaf7" stroke-width="22"/>
     </svg>
-    Mutualist Labs
-    <nav><a href="/updates.html">Updates</a></nav>
+    <a class="brand" href="/">Mutualist Labs</a>
+    <nav aria-label="Site"><a href="/example.html">Example</a><a href="/start.html">Get started</a><a href="/limits.html">Limits</a><a href="/updates.html">Updates</a></nav>
   </header>
 
   <main>
@@ -222,7 +83,7 @@
           <div><span>+0.42 ETH</span><span class="tx">tx 0x1b7d…09fa</span></div>
           <div><span class="warn">⚠ lookalike token, ignore</span><span class="tx">tx 0xc40e…77b2</span></div>
         </div>
-        <p class="caption">Illustration. Real answers print full hashes and block timestamps: <a href="#example">see one below</a>.</p>
+        <p class="caption">Illustration. Real answers print full hashes and block timestamps: <a href="/example.html">see a real one</a>.</p>
 
         <div class="cols">
           <div>
@@ -247,102 +108,11 @@
           </div>
         </div>
 
-        <h3 id="example">A real answer</h3>
-        <p>This is an answer LedgerLens gave on 11 November 2026 to a question about a public wallet, the Ethereum Foundation's. Figures, addresses and hashes are as it wrote them; only its closing "what to ask next" suggestion is left out. Since 13 November prices use the minute before each receipt, so the same question now gives 26.34 USD instead of 26.36, and the answer also gives a sentence on address poisoning.</p>
-        <div class="answer">
-          <p class="q"><strong>Question:</strong> What did <span class="hex">0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe</span> receive on Ethereum between 2024-02-23 and 2024-02-27?</p>
-          <p>Window checked: 2024-02-23 to 2024-02-27 (UTC, whole days), Ethereum.</p>
-          <p><strong>Summary:</strong> 14 receipts in this window. Two are ETH payments worth 26.36 USD in total, both from the same sender, priced at the hourly ETH-USD close from Coinbase for the hour of receipt. The other 12 are token transfers, all flagged as likely spam. They come from 6 distinct senders. Token and ETH coverage for the window is complete.</p>
-          <p><strong>Receipts (ETH, priced):</strong></p>
-          <table>
-            <thead>
-              <tr><th>Date/time (UTC)</th><th>Token</th><th>Amount</th><th>USD at receipt</th><th>Sender</th><th>Tx hash</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Date/time (UTC)">2024-02-26T00:06:23Z</td>
-                <td data-label="Token">ETH</td>
-                <td data-label="Amount">0.005573612869346879</td>
-                <td data-label="USD at receipt">17.36</td>
-                <td data-label="Sender">Unlabelled address <span class="hex">0x7b86f9feb2832c3C455148F33acaf59f8A4250ED</span></td>
-                <td data-label="Tx hash" class="hex">0xccb2ee6dc885c89070bda9cfd6b45275174b3182e1ba551633bd8de706c8d5a3</td>
-              </tr>
-              <tr>
-                <td data-label="Date/time (UTC)">2024-02-27T02:18:11Z</td>
-                <td data-label="Token">ETH</td>
-                <td data-label="Amount">0.002775645332409037</td>
-                <td data-label="USD at receipt">9.00</td>
-                <td data-label="Sender">Unlabelled address <span class="hex">0x7b86f9feb2832c3C455148F33acaf59f8A4250ED</span></td>
-                <td data-label="Tx hash" class="hex">0xaa51ff3702fc82ee4fca2f78c814089af57cbc67eae0ea61d6b153a2a64f175b</td>
-              </tr>
-            </tbody>
-          </table>
-          <p class="warn"><strong>Spam-flagged token transfers (no USD value, do not interact):</strong></p>
-          <ul>
-            <li>8 transfers of "Visit EthGift[.]net to c…" and "Visit GiftETH[.]net to c…" tokens, minted to this wallet from the null address on 2024-02-25. Their symbols contain URL-like claim text.</li>
-            <li>1 AIGPU transfer (3,964,485,758.25800419) on 2024-02-23T02:18:11Z, in tx <span class="hex">0x73b0f2bff1f22ad537edea79c4c1e41f6465442b2397e4e172c99dd6dc5075b7</span>, sent as part of a 262-recipient mass distribution.</li>
-            <li>1 SamaAi transfer, 1 POPK2.0 transfer and 1 LUMIA transfer, each part of a mass distribution to dozens or more recipients.</li>
-          </ul>
-          <p><strong>Anomalies:</strong></p>
-          <ul>
-            <li>Most token receipts are mass distributions of unpriced tokens. Do not swap, approve or claim anything these tokens point to.</li>
-            <li>Each sender of the spam is unlabelled.</li>
-          </ul>
-          <p><strong>Data gaps:</strong> None for the window.</p>
-          <p><em>LedgerLens is an AI agent. Answers can be wrong or incomplete; check anything important on a block explorer.</em></p>
+        <div class="cards">
+          <a class="card" href="/example.html"><strong>A real answer</strong>One question about a public wallet and the full answer, every hash included.</a>
+          <a class="card" href="/start.html"><strong>Get started</strong>Ask from the AntSeed desktop app or the command line. About 0.5 to 2 US cents an answer.</a>
+          <a class="card" href="/limits.html"><strong>Limits</strong>Chains, periods, transfer caps, prices and what it does not cover.</a>
         </div>
-        <p class="note">Answers vary in wording from one request to the next, and a period with incomplete coverage says what is missing under "Data gaps". Ask the same question yourself with the steps below.</p>
-
-        <h3>Use it</h3>
-        <p>LedgerLens is an AI agent on AntSeed. You reach it by choosing it as the seller, in the AntSeed desktop app or by its peer ID through the AntSeed command-line buyer; both go to the same seller. You pay per request in USDC from your AntSeed balance: a typical answer costs about 0.5 to 2 US cents, a busy wallet up to about 4 cents, and an off-topic decline under a cent. Prices are $0.50 per million input tokens and $2.50 per million output tokens.</p>
-
-        <p><strong>A question to try first.</strong> It is the one behind the answer above, so you can compare before using your own address:</p>
-<pre class="ask"><code>What did 0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe receive on Ethereum between 2024-02-23 and 2024-02-27?</code></pre>
-
-        <p><strong>In the AntSeed desktop app:</strong></p>
-        <ol>
-          <li><strong>Install.</strong> Download the app from <a href="https://antseed.com">antseed.com</a> or AntSeed's <a href="https://github.com/Antseed/antseed/releases/latest">latest release page</a>. There are builds for macOS, Windows and Linux.</li>
-          <li><strong>Fund.</strong> Select your balance in the top bar, or <em>Settings → Wallet → Add funds</em>. Pay by card where that is offered in your region, or send USDC on Base to the address shown; about 2 USDC is plenty.</li>
-          <li><strong>Open the Gateway Console.</strong> Select <em>API keys</em> (top right). The app's own chat lists only models that a seller with trust 60 or more serves, and LedgerLens is new and unstaked, so use the console's chat instead; it runs on the same gateway and balance.</li>
-          <li><strong>Let it reach LedgerLens.</strong> In the console, go to <em>Settings → Buyer</em> and set <em>Minimum trust score</em> to 0. Every seller with a lower score then becomes eligible too, including for automatic routing; set it back to 60 when you are done.</li>
-          <li><strong>Pick LedgerLens.</strong> Open <em>Chat</em> in the console, choose the model <code>ledgerlens</code> (listed as "Ledgerlens") and, next to it, the seller <em>LedgerLens</em>.</li>
-          <li><strong>Ask.</strong> Send your question. The line under the answer names the seller that served it; <em>Pin</em> keeps the rest of the chat on it.</li>
-        </ol>
-        <p class="note">The screen names are from AntSeed's <a href="https://antseed.com/docs/desktop">desktop app guide</a> and <a href="https://antseed.com/docs/gateway/chat">console chat guide</a>, which have the full detail.</p>
-
-        <p><strong>From the command line.</strong> Install the AntSeed CLI with <code>npm install -g @antseed/cli</code> (it needs Node.js 20 or later; see AntSeed's <a href="https://antseed.com/docs/install/">install guide</a>).</p>
-
-        <p class="note"><strong>First time?</strong> Run <code>antseed buyer deposit</code> for your funding address and send USDC on Base (about 2 USDC is plenty). A running buyer moves it into your deposits for a 0.05 USDC fee. Your first request to a seller holds up to 1 USDC of that in a payment channel; you pay only for what you use, and the rest is released when the channel closes.</p>
-
-        <p><strong>From any tool, via the local buyer.</strong> Put the peer ID in front of the service name:</p>
-<pre><code>antseed buyer start
-curl http://localhost:8377/v1/messages \
-  -H 'content-type: application/json' \
-  -d '{"model":"32d752272593c042888bb6e997c466d3574a9f52@ledgerlens",
-       "max_tokens":2048,
-       "messages":[{"role":"user","content":
-       "What did 0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe receive on Ethereum between 2024-02-23 and 2024-02-27?"}]}'</code></pre>
-        <p class="note">Use the Anthropic Messages endpoint (<code>/v1/messages</code>); the answer comes back as a stream of Server-Sent Events.</p>
-
-        <p><strong>Pin it for every request</strong> (until you clear it), then send plain <code>"model":"ledgerlens"</code>:</p>
-<pre><code>antseed buyer connection set --peer 32d752272593c042888bb6e997c466d3574a9f52
-antseed buyer connection clear    # to undo</code></pre>
-
-        <p class="note"><strong>Why pin?</strong> AntSeed's automatic routing only picks sellers with a trust score of 60 or more, which currently takes a staked pool. LedgerLens is unstaked, so routing won't choose it; on the command-line buyer a pin reaches it directly.</p>
-
-        <h3 id="limits">Limits</h3>
-        <ul class="limits">
-          <li><strong>Chains:</strong> Base, Ethereum and Arbitrum One. Without a chain it asks which. One question can cover several wallets or chains; each wallet on each chain is a separate lookup and adds to the cost and the time.</li>
-          <li><strong>Up to 270 days per question,</strong> covered in up to three 90-day parts. The answer names any dates it did not cover.</li>
-          <li><strong>Up to 200 transfers listed per 90-day part.</strong> A busier wallet gets the oldest 200, the time where the list stops, and counts after that point as "at least".</li>
-          <li><strong>Prices:</strong> tokens on LedgerLens's price list (about 35, including ETH, WBTC, the major stablecoins and the main DeFi tokens), from Coinbase or Kraken, at the last full minute before each receipt, else the full hour before. A stablecoin off its 1.00 peg is valued at its market price and the answer says so. Other tokens get no USD value and are called "outside LedgerLens's price list".</li>
-          <li><strong>Address poisoning</strong> is checked against addresses the wallet paid itself, over the period and the 30 days before it. For very busy wallets those payments cannot be read and the answer says poisoning was not checked; it never says none was found.</li>
-          <li><strong>ETH payments</strong> are checked for the whole period on Ethereum; on Base and Arbitrum the ETH check can be incomplete for very busy wallets, and the answer says so.</li>
-          <li><strong>Not covered:</strong> NFTs, what a wallet sent, and balances.</li>
-          <li><strong>Cost and time:</strong> you pay for what a question uses. One wallet on one chain typically costs 0.5 to 2 US cents and rarely more than 4 cents, and takes a few seconds. Two wallets on three chains cost about 6 to 11 cents and can take two to three minutes; some apps may stop waiting before then, so very large questions are best asked one wallet or chain at a time.</li>
-        </ul>
-
-        <p class="note">In the desktop app, addresses in copied answers can show as <code>[address hidden]</code>. That comes from the app (<a href="https://github.com/Antseed/antseed/issues/1506">AntSeed issue #1506</a>), not LedgerLens; the answers themselves contain every address in full.</p>
 
         <h3>Provider</h3>
         <dl>
